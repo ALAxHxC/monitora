@@ -11,7 +11,7 @@ class User extends Collection{
 			console.log(username,password);
 			let dbuser=await mycrypto.encryptInternal(username);
 			let dbpass=await mycrypto.encryptInternal(password);
- 	let user=await super.entity.findOne({username: dbuser, password: dbpass});
+ 	        let user=await super.entity.findOne({username: dbuser, password: dbpass});
  		 
  		  username=await mycrypto.decryptInternal(user.username);
 	      password=await mycrypto.decryptInternal(user.password);
@@ -22,6 +22,7 @@ class User extends Collection{
 			user.password=await mycrypto.encryptExternal(password);
  	return user;
  }
+
  async createUser(user){
  	
  	const username= await mycrypto.encryptExternal(user.username);
@@ -52,6 +53,23 @@ class User extends Collection{
  		throw(err);
  		console.log(err.stack);
  	}
+ }
+ async findUserData(from,id){
+ 	let data=await super.entity.aggregate([
+ 		 { $match: {
+            _id:id
+        }},
+   {
+     $lookup:
+       {
+         from: from,
+         localField: "userDetails",
+         foreignField: "_id",
+         as: "userData"
+       }
+  }]).exec();
+ //	console.log(data);
+ 	return data;
  }
  async findUsersByType(type,from)
  {

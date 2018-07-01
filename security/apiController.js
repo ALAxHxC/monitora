@@ -116,7 +116,8 @@ exports.initUser=function(user,res)
 						 {
       					expiresIn: parseInt(expires) // expires in 24 hours
    						 });
-	res.status(200).send({ auth: true, token: token , expiresIn: expires});
+	return {token:token,expires:expires};
+	//res.status(200).send({ auth: true, token: token , expiresIn: expires});
 }
 
 function loginJwt(api,res)

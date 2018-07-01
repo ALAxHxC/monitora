@@ -25,7 +25,7 @@ module.exports.encryptExternal = async function(text)
 {
 	/*let encrypt = await crypto2.encrypt(text,password_external,iv_external);
 	return encrypt;*/
-	let encrypt = aes256.encrypt(text,password_external);
+	let encrypt = aes256.encrypt(password_external,text);
 	return encrypt;
 }
 
@@ -33,7 +33,7 @@ module.exports.decryptExternal = async function(text)
 {
 	/*let decrypt = await crypto2.decrypt(text,password_external,iv_external);
 	return decrypt;*/
-	let encrypt = aes256.decrypt(text,password_external);
+	let encrypt = aes256.decrypt(password_external,text);
 	return encrypt;
 }
 

@@ -10,8 +10,6 @@ var userTypeController=require('./userTypeController');
 var errors=require('../../model/alert/errorMessagesAPI');
 var mycrypto=require('../../security/apiUtils');
 var session=require('../../security/apiController');
-
-
 let userController=new User(userEntity);
 
 module.exports.getUsers= async function(req,res)
@@ -339,14 +337,18 @@ module.exports.loginUser=async function(req,res)
 	{
 		let user=await mycrypto.decryptExternal(req.body.username);
 		let pass=await mycrypto.decryptExternal(req.body.password);
+		console.log(user,pass);
 		//res.json({status:400,user:user,pass:pass});
 		let dbuser=await mycrypto.encryptInternal(user);
 		let dbpass=await mycrypto.encryptInternal(pass);
 		//console.log(dbuser,dbpass);
 		let request_user=await userController.loginUser(dbuser,dbpass);
+		let data_user=await getUserData(request_user);
 		if(request_user)
 		{
-			session.initUser(user,res);
+			let login=session.initUser(request_user,res);
+		    data_user=await transformUserInternalExternal(data_user[0]);
+			res.status(200).send({login:login,user:data_user});
 			return;
 		}
 	res.status(400).send({error:errors.noUserFound});
@@ -360,6 +362,11 @@ module.exports.loginUser=async function(req,res)
 
 }
 
+async function getUserData(user){
+	let from=userTypeController.type(user.userTypeDescription);
+	let data=await userController.findUserData(from,user._id);
+	return data;
+}
 async function descryptInteralUserData(userData){
 	userData.firstNames=await mycrypto.decryptInternal(userData.firstNames);
 	userData.lastNames=await mycrypto.decryptInternal(userData.lastNames);
@@ -377,14 +384,15 @@ async function encryptExternalUserData(userData){
 
 async function transformUserInternalExternal(user)
 {
+	console.log(user);
 	   let purepass= await mycrypto.decryptInternal(user.password);
 	   let pureuser= await mycrypto.decryptInternal(user.username); 
 	   console.log(purepass,pureuser); 
 	   user.password= await mycrypto.encryptExternal(purepass);
 	   user.username= await mycrypto.encryptExternal(pureuser);  
 	   console.log( user.password,user.username); 
-	user.userData=await descryptInteralUserData(user.userData[0]);
-	user.userData=await encryptExternalUserData(user.userData);
-	//console.log(user.userData);
+    	user.userData=await descryptInteralUserData(user.userData[0]);
+	    user.userData=await encryptExternalUserData(user.userData);
+	   console.log(user.userData);
 	return user;
 }

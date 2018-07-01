@@ -126,3 +126,16 @@ module.exports.entitys=function()
 	};
 	;
 }
+module.exports.type=function(type){
+
+	switch (type){
+		case 1:
+			return "admins";
+		case 2:
+			return "patients";
+		case 3:
+			return "medics";
+		default:
+			return "patients";
+	}
+}
