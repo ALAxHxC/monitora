@@ -335,12 +335,12 @@ module.exports.loginUser=async function(req,res)
 {
 	try
 	{
-		let user=await mycrypto.decryptExternal(req.body.username);
-		let pass=await mycrypto.decryptExternal(req.body.password);
-		console.log(user,pass);
+		//let user=await mycrypto.decryptExternal(req.body.username);
+		//let pass=await mycrypto.decryptExternal(req.body.password);
+		//console.log(user,pass);
 		//res.json({status:400,user:user,pass:pass});
-		let dbuser=await mycrypto.encryptInternal(user);
-		let dbpass=await mycrypto.encryptInternal(pass);
+		let dbuser=await mycrypto.encryptInternal(req.body.username);
+		let dbpass=await mycrypto.encryptInternal(req.body.password);
 		//console.log(dbuser,dbpass);
 		let request_user=await userController.loginUser(dbuser,dbpass);
 		let data_user=await getUserData(request_user);
@@ -375,10 +375,10 @@ async function descryptInteralUserData(userData){
 	return userData;
 }
 async function encryptExternalUserData(userData){
-	userData.firstNames=await mycrypto.encryptExternal(userData.firstNames);
+	/*userData.firstNames=await mycrypto.encryptExternal(userData.firstNames);
 	userData.lastNames=await mycrypto.encryptExternal(userData.lastNames);
 	userData.document.identification=await mycrypto.encryptExternal(userData.document.identification);
-	userData.document.type=await mycrypto.encryptExternal(userData.document.type);
+	userData.document.type=await mycrypto.encryptExternal(userData.document.type);*/
 	return userData;
 }
 
@@ -392,7 +392,7 @@ async function transformUserInternalExternal(user)
 	   user.username= await mycrypto.encryptExternal(pureuser);  
 	   console.log( user.password,user.username); 
     	user.userData=await descryptInteralUserData(user.userData[0]);
-	    user.userData=await encryptExternalUserData(user.userData);
+	    //user.userData=await encryptExternalUserData(user.userData);
 	   console.log(user.userData);
 	return user;
 }
