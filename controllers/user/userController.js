@@ -194,7 +194,7 @@ module.exports.createUserAsPatient= async function(req,res)
 	user.password=await mycrypto.encryptInternal(req.body.password);
 
 	let patient=await patientController.searchPatientByIdInternal(req.body.userData);
-	
+	console.log(patient)
 	user.userTypeDescription=userTypeController.entitys().patient;
 	if(!patient)
 	{
