@@ -7,11 +7,22 @@ const Patient = require('../../database/user/PatientCollection.js');
 
 let patientEntity=new Patient(patientController);
 
+module.exports.getPatientesByMedic=async function(req,res){
+	try{
+		let result=await patientEntity.searchPatientByMedic(req.params.id);
+		res.status(200).json({
+			status:200,
+			entity: result
+		});
+	}catch(err){
+		res.status(400).json({cause: errors.noPatientsFound,error: err.message});
+	}
+}
+
 module.exports.createPatient= async function(req,res)
 {
 	try
 	{
-		console.log("Creacion de paciente");
 		let patient=req.body;
 		let result=await patientEntity.createPatient(patient);
 		res.status(201).json

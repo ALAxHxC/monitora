@@ -18,6 +18,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var user_types= require('./routes/user_types')
 var patient = require('./routes/patient');
+var medic = require('./routes/medic');
 var traigeRest = require('./routes/triage');
 var auth= require('./routes/auth');
 
@@ -43,6 +44,7 @@ app.use('/patient',patient);
 app.use('/permissions',user_types);
 app.use('/auth',auth);
 app.use('/traige',traigeRest);
+app.use('/medic',medic); 
 //
 //app.use('/permissions',user_types);
 // catch 404 and forward to error handler

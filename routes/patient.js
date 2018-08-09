@@ -9,17 +9,18 @@ router.get('/identification/:id',function(req,res,next){
 router.get('/:id', function(req, res, next) {
   patientController.searchPatientById(req,res);
 });
-//post User
 router.post('/', function(req, res, next) {
 	
   patientController.createPatient(req,res);
-  //res.send('respond with a resource');
 });
 router.patch('/:id',function(req,res,next){
 	patientController.updatePatientService(req,res);
 });
 router.patch('/medic/:id/:idMedic',function(req,res,next){
 	patientController.updateIdMedic(req,res);
+});
+router.get('/medic/:id',function(req,res,next){
+	patientController.getPatientesByMedic(req,res);
 })
 
 

@@ -9,64 +9,6 @@ var medicEntity =require('mongoose').model('Medic');
 var medicController=new UserMedic(medicEntity);
 var UserTypeController=require('./userTypeController');
 
-
-//Medicos por id
-/*
-
-module.exports.updateMedic= async function(req,res)
-{
-	try
-	{
-		let medic= await getMedicById(req.params.id);
-		//res.json(medic);
-		//	medic.description=req.body.description;
-		console.log(medic);
-		if(req.body.description)
-		{
-			console.log("Actualiza description");
-			medic.user_details.description=req.body.description;
-		}
-
-		if(req.body.especiality)
-		{
-			console.log("Actualiza especialidad");
-			medic.user_details.especiality=req.body.especiality;
-		}
-
-		console.log(medic);
-		let newMedic=await updateMedic(medic);
-		if(newMedic)
-		{
-			res.status(200).json
-			(
-				{
-					status: 200,
-					id: newMedic._id,
-					user_details: newMedic.user_details,
-					result: "Update"
-				}
-			);
-		}
-		else
-		{
-			res.status(400).json(error);
-		}
-	}
-	catch(err)
-	{
-		res.status(400).json({error:err,cause: err.message });
-	}
-}
-
- async function getMedicById(id)
- {
- 	//console.log(newid);
- 	let user=await userController.findOne({_id: id, user_type: user_typeController.entitys().medic }).exec();
- 	//console.log(user);
- 	return user;
- }
-*/
-
 module.exports.getMedicById=async function(id)
 {
 	return getMedicById(id);

@@ -24,7 +24,14 @@ class Patient extends Collection
 		throw(err);
 	}
 	}
- 
+ 	async searchPatientByMedic(idMedic){
+ 		try{
+ 			let patients=await super.entity.find({idMedic:idMedic});
+ 			return patients;
+ 		}catch(err){
+ 			throw(err);
+ 		}
+ 	}
 	async searchPatientByIdentification(identification)
 	{
 		try{
