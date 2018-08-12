@@ -10,11 +10,13 @@ let patientEntity=new Patient(patientController);
 module.exports.getPatientesByMedic=async function(req,res){
 	try{
 		let result=await patientEntity.searchPatientByMedic(req.params.id);
+		let descrypt=await decryptInternalPatients(result);
 		res.status(200).json({
 			status:200,
-			entity: result
+			entity: descrypt
 		});
 	}catch(err){
+		console.log(err.stack,err.message);
 		res.status(400).json({cause: errors.noPatientsFound,error: err.message});
 	}
 }
@@ -102,9 +104,26 @@ module.exports.updateIdMedic=async function(req,res){
 	res.status(201).json(patient_updated);
 }catch(err){
 	
-	console.log(err.stack);
+	console.log(err.message,err.stack,err);
 	res.status(400).json({cause: errors.noPatientUpdated,error: err.message})
 }
+}
+async function decryptInternalPatients(patientsList){
+	let internal_patients=Array();
+	//console.log(patientsList);
+	for (let patient  of patientsList){
+		let decrypt =await decryptInternalPatient(patient);
+		internal_patients.push(decrypt);
+	}
+	return internal_patients;
+}
+async function decryptInternalPatient(patientInternal){
+		patientInternal.firstNames = await mycrypto.decryptInternal(patientInternal.firstNames);
+		patientInternal.lastNames = await mycrypto.decryptInternal(patientInternal.lastNames);
+		
+	  	patientInternal.document.identification=await mycrypto.decryptInternal(patientInternal.document.identification);
+	  	patientInternal.document.type=await mycrypto.decryptInternal(patientInternal.document.type);
+		return 	patientInternal;
 }
 async  function patientInternalToExternal(patientInternal)
  {
