@@ -37,11 +37,13 @@ module.exports.decryptExternal = async function(text)
 	let encrypt = aes256.decrypt(password_external,text);
 	return encrypt;
 }
-
+//desncripta una valor de la base de datos
 async function test()
 {
 	try{
-		let encrypt = await crypto2.encrypt("1030626898",password_external,iv_external);
+		let user = await crypto2.decrypt("bb1130d28eb37b07fb0417c27c4c984f",password_internal,iv_internal);
+		let password = await crypto2.decrypt("3b2ef770395d798d94089d0fffc791ca",password_internal,iv_internal);
+
 	// Create a password from a secret key.
 	 // const password = await crypto2.createPassword('secret');
 	  // Create a one-time valid initialization vector.
@@ -55,7 +57,8 @@ async function test()
 	//await crypto2.decrypt(encrypted, password_internal, iv_internal);
 	 // console.log(`Password: ${password}`);
 	//  console.log(`Iv: ${iv}`);*/
-	 	console.log(`Encrypted: ${encrypt}`);
+	 	console.log(`user: ${user}`);
+	 	console.log(`user: ${password}`);
 	// console.log(`dEncrypted: ${descrypt}`);
 	  // 	console.log(`Encrypted: ${descryo}`);	
 	}catch(err){
