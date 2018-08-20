@@ -8,7 +8,8 @@ class Triage extends Collection
 	}
 	async getTriageByPatient(idPatient)
 	{
-		let triage=await super.entity.find({idPatient:idPatient});
+		let triage=await super.entity.find({idPatient:idPatient})
+		.sort({'createAt':-1});
 		return triage;
 	}
 }
