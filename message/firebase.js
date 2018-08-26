@@ -9,19 +9,33 @@ admin.initializeApp
   }
 );
 
-/*if (!admin.apps.length) 
-{
-  initializeApp
-  (
-    {
-     credential: firebaseAdmin.credential.cert(serviceAccount),
-     databaseURL: "https://telemed-f679a.firebaseio.com"
-    }
-  );
-}*/
-
 console.log(admin.apps.length);
-
+module.exports.sendMessage= async function(notification){
+  try
+  {
+	//	let medic=await medicController.getMedicById(notification.idMedic);
+		var message=
+    {
+            notification: 
+            {
+            	title: notification.subject,
+            	body: notification.description
+            },
+            data:
+            {
+            	id:notification._id,
+            	triage: notification.idTriage,
+            }
+		}
+    let response_message=await sendMessage(message);
+    return response_message;
+	}
+	catch(err)
+  { 
+    console.log("Error Firebase",err.stack);
+    throw(err);
+	}
+}
 module.exports.sendMessagesNotification= async function(notification)
 {
 	try

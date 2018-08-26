@@ -16,12 +16,12 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var user_types= require('./routes/user_types')
-var patient = require('./routes/patient');
-var medic = require('./routes/medic');
-var traigeRest = require('./routes/triage');
-var auth= require('./routes/auth');
-
+var userTypesRouter= require('./routes/user_types')
+var patientRouter = require('./routes/patient');
+var medicRouter = require('./routes/medic');
+var traigeRouter = require('./routes/triage');
+var authRouter= require('./routes/auth');
+var messageRouter=require('./routes/message');
 
 
 var firebase = require('./message/firebase');
@@ -40,11 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/patient',patient);
-app.use('/permissions',user_types);
-app.use('/auth',auth);
-app.use('/traige',traigeRest);
-app.use('/medic',medic); 
+app.use('/patient',patientRouter);
+app.use('/permissions',userTypesRouter);
+app.use('/auth',authRouter);
+app.use('/traige',traigeRouter);
+app.use('/medic',medicRouter);
+app.use('/messages',messageRouter);
 //
 //app.use('/permissions',user_types);
 // catch 404 and forward to error handler

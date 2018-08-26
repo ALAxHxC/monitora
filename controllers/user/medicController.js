@@ -16,9 +16,8 @@ module.exports.getMedicById=async function(id)
  async function getMedicById(id)
  {
  	try{
- 	//console.log(newid);
  	let user=await medicController.getDocumentById(id);
- 	console.log(user);
+ 	//console.log(user);
  	return user;
  }catch(err){
  	throw(err);
