@@ -26,7 +26,8 @@ var messageRouter=require('./routes/message');
 
 var firebase = require('./message/firebase');
 var app = express();
-
+var cors = require('cors')
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
