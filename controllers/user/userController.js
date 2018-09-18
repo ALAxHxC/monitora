@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 var userEntity=require('mongoose').model('User');
 var User=require('../../database/user/UserCollection');
 //var adminController=require('mongoose').model('admin');

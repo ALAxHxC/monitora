@@ -1,8 +1,12 @@
-var express = require('express');
-var patientController=require('../controllers/user/patientController');
-var router = express.Router();
+const express = require('express');
+const patientController=require('../controllers/user/patientController');
+const patientControllerDocument=require('../controllers/patient/patientController');
+const router = express.Router();
 
 /* GET users listing. */
+router.get('/',(req,res)=>{
+  patientControllerDocument.getAll(res);
+});
 router.get('/identification/:id',function(req,res,next){
   patientController.searchPatientByIdentity(req,res);
 });
