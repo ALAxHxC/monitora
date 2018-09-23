@@ -7,16 +7,20 @@ var router = express.Router();
 router.get('/',function(req,res,next){
   userController.getUsers(req,res);
 });
+
+//post User
+router.post('/', function(req, res, next) {
+  userController.createUser(req,res);
+  //res.send('respond with a resource');
+});
+router.delete('/:id',function(req,res,next){
+  userController.deleteUserByid(req.params.id,res);
+});
 router.get('/search/:id', function(req, res, next) {
   userController.getUserById(req,res);
 });
 router.get('/search/:id/:fb',function(req,res,next){
   userController.updateFirebase(req,res);
-});
-//post User
-router.post('/', function(req, res, next) {
-  userController.createUser(req,res);
-  //res.send('respond with a resource');
 });
 router.get('/admin', function(req, res, next) {
    userController.getAdmins(req,res);

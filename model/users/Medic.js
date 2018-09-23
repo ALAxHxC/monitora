@@ -9,7 +9,7 @@ exports = module.exports = function(app, mongoose)
         lastNames : { type: 'String'},
         document: 
         {
-      	   identification :{ type: 'String'},
+      	   identification :{ type: 'String', unique: true},
       	   type: {type: 'String'}
         },
         date: {type: Date},

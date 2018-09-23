@@ -38,6 +38,14 @@ class Collection
 			throw(err);
 		}
 	}
+	async deleteDocumentById(id){
+		try{
+			let result = await this.collection.remove({_id: id});
+			return result;
+		}catch(err){
+			throw(err);
+		}
+	}
 
 	async getAll(){
 		try

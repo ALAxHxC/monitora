@@ -8,7 +8,7 @@ var apiSchema = new mongoose.Schema
     firstNames : { type: 'String'},
     lastNames : { type: 'String'},
     document: {
-    	identification :{ type: 'String'},
+    	identification :{ type: 'String',unique: true},
     	type: {type: 'String'}
     },    
     sesion: {type: Boolean, default: false},
