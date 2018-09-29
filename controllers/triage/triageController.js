@@ -6,7 +6,14 @@ var patientController=require('../user/patientController');
 var medicController=require('../user/medicController');
 var NotifyController=require('../notification/notifyController');
 var errors=require('../../model/alert/errorMessagesAPI');
-
+exports.getAll = async function (res) {
+	try {
+		let data = await triageEntity.getAll();
+		res.status(200).json(data);
+	} catch (err) {
+		res.status(400).json({ error: errors.noTriageCreate, cause: err.message });
+	}
+}
 exports.addTriage=async function(req,res)
 {
 	try

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var patientController=require('mongoose').model('Patient');
-var medicController=require('./medicController');
-var errors=require('../../model/alert/errorMessagesAPI');
-var mycrypto=require('../../security/apiUtils');
+const mongoose = require('mongoose');
+const patientController=require('mongoose').model('Patient');
+const medicController=require('./medicController');
+const errors=require('../../model/alert/errorMessagesAPI');
+const mycrypto=require('../../security/apiUtils');
 const Patient = require('../../database/user/PatientCollection.js');
 
 let patientEntity=new Patient(patientController);
