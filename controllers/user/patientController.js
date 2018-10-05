@@ -59,7 +59,7 @@ module.exports.searchPatientById= async function(req,res)
 	{
 	   let entity= await patientEntity.getDocumentById(req.params.id);
 	  // console.log(entity);
-	   entity=await patientInternalToExternal(entity);
+	   entity=await  decryptInternalPatient(entity);
 	   res.status(201).json(entity);
 	}
 	catch(err)
@@ -76,7 +76,7 @@ module.exports.searchPatientByIdentity= async function(req,res)
 		console.log(req.params.id);
 		let id=await  mycrypto.encryptInternal(req.params.id);
 		let entity= await patientEntity.searchPatientByIdentification(id);
-		entity=await patientInternalToExternal(entity);
+		entity=await decryptInternalPatient(entity);
 		res.status(201).json(entity);
 	}
 	catch(err)
