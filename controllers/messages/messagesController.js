@@ -26,6 +26,14 @@ try{
     res.status(400).json({error: errors.noTriageCreate,cause: err.message});
 }
 }
+getAllMessages=async(res)=>{
+    try{
+        let data = await entityManager.getAll()
+        res.status(200).json(data)
+    }catch(err){
+        res.status(400).json({error: errors.noTriageCreate,cause: err.message});
+    }
+}
 getByMedic=async(id,res)=>{
     try{
         let messages=await entityManager.getMessagesByMedic(id);
@@ -75,5 +83,6 @@ module.exports={
     getByMedic,
     getByPatient,
     updatePatientView,
-    updateMedicView
+    updateMedicView,
+    getAllMessages
 }

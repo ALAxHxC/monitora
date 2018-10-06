@@ -3,6 +3,9 @@ const messagesCTRL=require('../controllers/messages/messagesController');
 var router = express.Router();
 
 /* GET home page. */
+router.get('/view/all', function(req, res, next) {
+  messagesCTRL.getAllMessages(res);
+});
 router.get('/view/patient/:id', function(req, res, next) {
   messagesCTRL.updatePatientView(req.params.id,res);
 });
