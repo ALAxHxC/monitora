@@ -5,6 +5,33 @@ class Message extends Collection{
  constructor(){
  	super(entity);
  }
+ async getAllData(){
+	 try{
+				let data= await super.entity.aggregate([
+					{
+					 $lookup:
+					   {
+						 from: "medics",
+						 localField: "idMedic",
+						 foreignField: "_id",
+						 as: "medic"
+					   }
+				  },
+				  {
+				   $lookup:
+					   {
+						 from: "patients",
+						 localField: "idPatient",
+						 foreignField: "_id",
+						 as: "patient"
+					   }
+				  }
+				]).exec();
+				return data;
+	 }catch(err){
+		 throw(err);
+	 }
+ }
  async getMessagesByMedic(id){
 	 try{
 	 let messages= await entity.find({idMedic:id}).sort({'createAt':-1});

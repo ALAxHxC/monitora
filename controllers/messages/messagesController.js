@@ -28,7 +28,7 @@ try{
 }
 getAllMessages=async(res)=>{
     try{
-        let data = await entityManager.getAll()
+        let data = await entityManager.getAllData()
         res.status(200).json(data)
     }catch(err){
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});

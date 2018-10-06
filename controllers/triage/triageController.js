@@ -8,7 +8,7 @@ var NotifyController=require('../notification/notifyController');
 var errors=require('../../model/alert/errorMessagesAPI');
 exports.getAll = async function (res) {
 	try {
-		let data = await triageEntity.getAll();
+		let data = await triageEntity.getAllData();
 		res.status(200).json(data);
 	} catch (err) {
 		res.status(400).json({ error: errors.noTriageCreate, cause: err.message });
