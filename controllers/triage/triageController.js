@@ -1,15 +1,28 @@
-var triageController=require('mongoose').model('Triage');
+const utils = require('../../utils/utils');
+const triageController=require('mongoose').model('Triage');
 const Triage=require("../../database/triage/TriageCollection.js");
 let triageEntity=new Triage(triageController);
 
-var patientController=require('../user/patientController');
-var medicController=require('../user/medicController');
-var NotifyController=require('../notification/notifyController');
-var errors=require('../../model/alert/errorMessagesAPI');
+const patientController=require('../user/patientController');
+const medicController=require('../user/medicController');
+const NotifyController=require('../notification/notifyController');
+const errors=require('../../model/alert/errorMessagesAPI');
+
+
 exports.getAll = async function (res) {
 	try {
 		let data = await triageEntity.getAllData();
-		res.status(200).json(data);
+		let array=[];
+		for (item of data){
+            if(item.patient.length>0){
+                item.patient = await utils.decryptInternalPatient(item.patient[0]);
+            }
+            if(item.medic.length>0){
+                item.medic = await utils.decryptInternalPatient(item.medic[0]);
+            }
+            array.push(item);
+        }
+		res.status(200).json(array);
 	} catch (err) {
 		res.status(400).json({ error: errors.noTriageCreate, cause: err.message });
 	}

@@ -3,6 +3,7 @@ const patientController=require('../user/patientController');
 const medicController=require('../user/medicController');
 const errors=require('../../model/alert/errorMessagesAPI');
 const entityManager=new Collection();
+const utils = require('../../utils/utils');
 const fcmController=require('../../message/firebase');
 
 createMessage=async (req,res)=>{
@@ -28,8 +29,18 @@ try{
 }
 getAllMessages=async(res)=>{
     try{
+        let array=[];
         let data = await entityManager.getAllData()
-        res.status(200).json(data)
+        for (item of data){
+            if(item.patient.length>0){
+                item.patient = await utils.decryptInternalPatient(item.patient[0]);
+            }
+            if(item.medic.length>0){
+                item.medic = await utils.decryptInternalPatient(item.medic[0]);
+            }
+            array.push(item);
+        }
+        res.status(200).json(array);
     }catch(err){
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});
     }
