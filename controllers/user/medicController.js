@@ -8,10 +8,24 @@ const UserMedic=require('../../database/user/UserMedicCollection.js');
 var medicEntity =require('mongoose').model('Medic');
 var medicController=new UserMedic(medicEntity);
 var UserTypeController=require('./userTypeController');
-
-module.exports.getMedicById=async function(id)
+let utils = require('../../utils/utils');
+module.exports.getMedicById=async function(id,res)
 {
-	return getMedicById(id);
+	{
+		try{
+		let user=await medicController.getDocumentById(id);
+		//console.log(user);
+		let data = await utils.decryptInternalPatient(user);
+		res.status(200).json(data);
+	}catch(err){
+		res.status(400).json({
+			status:400,
+			message: "We can found medic"
+		});s
+		throw(err);
+	}
+	}
+   
 }
  async function getMedicById(id)
  {
