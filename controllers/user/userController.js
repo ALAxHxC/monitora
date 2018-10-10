@@ -102,8 +102,7 @@ module.exports.getUserById = async function (req, res) {
 }
 
 module.exports.updateMedic = async function (req, res) {
-	res.json({ status: 200, estado: "Estado" });
-	// medicController.updateMedic(req,res);
+
 }
 
 module.exports.updateFirebase = async function (req, res) {

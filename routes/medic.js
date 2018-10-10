@@ -11,11 +11,10 @@ router.get('/',function(req,res,next){
 router.post('/', function(req, res, next) {
   userController.createUserMedic(req,res);
 });
-router.get('patients/:id',function(req,res,next){
-
-});
-
 router.get('/search/:id',function(req,res,next){
   medicController.getMedicById(req.params.id,res);
 });
+router.patch('/:id',function(req,res,next){
+  medicController.updateMedicService(req,res)
+})
 module.exports = router;
