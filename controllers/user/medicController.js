@@ -15,7 +15,11 @@ module.exports.getMedicById = async function (id, res) {
 			let user = await medicController.getDocumentById(id);
 			//console.log(user);
 			let data = await utils.decryptInternalPatient(user);
+			if(res)
 			res.status(200).json(data);
+			
+			return data;
+			
 		} catch (err) {
 			res.status(400).json({
 				status: 400,

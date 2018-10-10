@@ -53,6 +53,7 @@ exports.addTriage=async function(req,res)
 	}
 	catch(err)
 	{
+		console.log(err.stack);
 	 res.status(400).json({error: errors.noTriageCreate,cause: err.message});
 	}
 }
