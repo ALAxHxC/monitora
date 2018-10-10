@@ -16,6 +16,9 @@ router.post('/', function(req, res, next) {
 router.delete('/:id',function(req,res,next){
   userController.deleteUserByid(req.params.id,res);
 });
+router.patch('/password/:id',function(req,res,next){
+  userController.updatePassword(req,res);
+});
 router.get('/search/:id', function(req, res, next) {
   userController.getUserById(req,res);
 });

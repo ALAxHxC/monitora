@@ -44,6 +44,17 @@ class User extends Collection{
  }
  }
 
+ async updatePassword(id,password){
+	try{
+	let updated= await super.entity.update({ _id: id }, { $set: { password: password }});
+	return updated;
+}catch(err){
+	console.log(err.stack);
+	throw(err);
+}
+}
+
+
  async loginUser(username,password){
  	try{
  		let user= await super.entity.findOne({username: username, password: password});

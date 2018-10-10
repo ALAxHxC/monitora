@@ -28,7 +28,9 @@ const noPatientTriage = createResponse(2014, "Triage error", "No patient found",
 const noFirebaseIdUpdate = createResponse(2015, "User Error error", "No firebase updated", "No hay servicio disponible", "Sin servicio");
 const noNotifyCreate = createResponse(2016, "Triage Error", "No notify created", "no pudimos enviar la notifación", "No pudimos enviar la notifación");
 const noDeleteUser = createResponse(2017, "User Error", "No deleted user", "no pudimos enviar eliminar el usuario", "no pudimos enviar eliminar el usuario");
+const noUpdatePassword = createResponse(2018,"We cant update password","No pudimos actualizar la contraseña","No pudimos actualizar la contraseña")
 module.exports = {
+	noUpdatePassword,
 	noDeleteUser,
 	noApiFound: noApiFound,
 	noUserType: noUserType,

@@ -9,6 +9,9 @@ var userTypeController = require('./userTypeController');
 var errors = require('../../model/alert/errorMessagesAPI');
 var mycrypto = require('../../security/apiUtils');
 var session = require('../../security/apiController');
+
+const utils = require('../../utils/utils');
+
 let userController = new User(userEntity);
 
 module.exports.getUsers = async function (req, res) {
@@ -109,6 +112,21 @@ module.exports.updateFirebase = async function (req, res) {
 		res.status(201).json(updated);
 	} catch (err) {
 		res.status(400).json({ error: errors.noFirebaseIdUpdate, cause: err.message });
+
+	}
+}
+/**
+ * Actualiza contraseña
+ * @param {*} req 
+ * @param {*} res 
+ */
+module.exports.updatePassword = async function(req,res){
+	try{
+		let password = await utils.encryptItem(req.body.password);
+		let updated = await userController.updatePassword(req.params.id,password)
+		res.status(201).json(updated);
+	}catch(err){
+		res.status(400).json({ error: errors.noUpdatePassword, cause: err.message });
 
 	}
 }

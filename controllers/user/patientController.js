@@ -4,7 +4,7 @@ const medicController=require('./medicController');
 const errors=require('../../model/alert/errorMessagesAPI');
 const mycrypto=require('../../security/apiUtils');
 const Patient = require('../../database/user/PatientCollection.js');
-
+const utils = require('../../utils/utils');
 let patientEntity=new Patient(patientController);
 
 module.exports.getPatientesByMedic=async function(req,res){
@@ -90,7 +90,7 @@ module.exports.updatePatientService=async function(req,res){
 		let id=req.params.id;
 		let patient=req.body;
 		console.log(id,patient)
-	patient= await patientExternalToInternal(patient);
+	patient= await utils.encryptUpdateInternalUser(patient);
 	let updatePatient=await patientEntity.updatePatient(id,patient);
 	res.status(201).json(updatePatient);
 }catch(err){
