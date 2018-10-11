@@ -15,6 +15,7 @@ exports = module.exports = function(app, mongoose)
         date: {type: Date},
         description:{type: 'String'},
         especiality : {type: 'String'},
+        medical_center:{type: 'String', default: null},
         sesion: {type: Boolean, default: false},
         lastSesion: { type: Date, default: null },
         createAt: { type: Date, default: Date.now },

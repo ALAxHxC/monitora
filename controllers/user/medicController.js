@@ -76,6 +76,7 @@ function generateMedic(user) {
 			type: user.userData.document.type,
 		},
 		date: user.userData.date,
+		medical_center: user.userData.medical_center,
 		description: user.userData.description,
 		especiality: user.userData.especiality,
 		sesion: false
