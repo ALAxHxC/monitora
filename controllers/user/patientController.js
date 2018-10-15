@@ -64,8 +64,8 @@ module.exports.searchPatientById= async function(req,res)
 	   if(entity[0].user[0]){
 		entity[0].user = await utils.decryptInternalUser(entity[0].user[0]);
 	   }
-	  // entity.user = await utils.decryptInternalUser(entity.user);
-	   res.status(200).json(entity[0]);
+	 entity= await utils.decryptInternalPatient(entity[0]);
+	   res.status(200).json(entity);
 	}
 	catch(err)
 	{
