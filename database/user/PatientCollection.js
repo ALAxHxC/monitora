@@ -1,7 +1,10 @@
+const mongoose = require('mongoose');
+
 const medicController = require('../../controllers/user/medicController');
 const mycrypto = require('../../security/apiUtils');
 const Collection = require('../general/Collection.js');
 const mainCollection = require('mongoose').model('Patient');
+
 class Patient extends Collection {
 	constructor() {
 		super(mainCollection);
@@ -27,6 +30,26 @@ class Patient extends Collection {
 			return patients;
 		} catch (err) {
 			throw (err);
+		}
+	}
+	async searchPatientById(id){
+		try{
+			let patient = await super.entity.aggregate([
+				{ $match: {
+				  _id:mongoose.Types.ObjectId(id)
+			  }},
+		 {
+		   $lookup:
+			 {
+				from: "users",
+				localField: "_id",
+				foreignField: "userDetails",
+				as: "user"
+			}
+		}]).exec();
+		return patient;
+		}catch(error){
+			throw(error);
 		}
 	}
 	async searchPatientByIdentification(identification) {

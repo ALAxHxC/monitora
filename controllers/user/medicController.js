@@ -12,9 +12,10 @@ let utils = require('../../utils/utils');
 module.exports.getMedicById = async function (id, res) {
 	{
 		try {
-			let user = await medicController.getDocumentById(id);
+			let user = await medicController.medicById(id);
 			//console.log(user);
-			let data = await utils.decryptInternalPatient(user);
+			let data = await utils.decryptInternalPatient(user[0]);
+			data.user=await utils.decryptInternalUser(data.user[0]);
 			if(res)
 			res.status(200).json(data);
 			
@@ -32,7 +33,7 @@ module.exports.getMedicById = async function (id, res) {
 }
 async function getMedicById(id) {
 	try {
-		let user = await medicController.getDocumentById(id);
+		let user = await medicController.medicById(id);
 		//console.log(user);
 		return user;
 	} catch (err) {

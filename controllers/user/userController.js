@@ -101,9 +101,6 @@ module.exports.getUserById = async function (req, res) {
 		).catch(onRejected => { res.status(400).json(onRejected); });
 }
 
-module.exports.updateMedic = async function (req, res) {
-
-}
 
 module.exports.updateFirebase = async function (req, res) {
 	try {
@@ -255,6 +252,14 @@ module.exports.getUserById = async function (req, res) {
 		res.status(200).json(user);
 	} catch (err) {
 		res.status(400).send({ error: errors.noUserSearch, cause: err.message });
+	}
+}
+module.exports.getUsersByType= async function(type,userDetails){
+	try{
+		let user = await userController.userByType(type,userDetails);
+		return user;
+	}catch(error){
+		throw(error);
 	}
 }
 ///Login

@@ -7,6 +7,12 @@ async function decryptInternalPatient(user){
     user.document.type=await mycrypto.decryptInternal(user.document.type);
     return 	user;
 }
+
+async function decryptInternalUser(user){
+    user.username = await mycrypto.decryptInternal(user.username);
+    user.password = await mycrypto.decryptInternal(user.password);
+    return 	user;
+}
 async function encryptUpdateInternalUser(user){
     user.firstNames = await mycrypto.encryptInternal(user.firstNames);
     user.lastNames = await mycrypto.encryptInternal(user.lastNames);
@@ -27,5 +33,6 @@ module.exports ={
     decryptInternalPatient,
     encryptInternalUser,
     encryptUpdateInternalUser,
-    encryptItem
+    encryptItem,
+    decryptInternalUser
 }

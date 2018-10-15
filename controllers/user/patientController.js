@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const userTypes = require('./userTypeController');
 const patientController=require('mongoose').model('Patient');
+const userController =require('./userController');
 const medicController=require('./medicController');
 const errors=require('../../model/alert/errorMessagesAPI');
 const mycrypto=require('../../security/apiUtils');
@@ -57,10 +59,13 @@ module.exports.searchPatientById= async function(req,res)
 {
 	try
 	{
-	   let entity= await patientEntity.getDocumentById(req.params.id);
-	  // console.log(entity);
-	   entity=await  decryptInternalPatient(entity);
-	   res.status(201).json(entity);
+	   let entity = await patientEntity.searchPatientById(req.params.id);
+	   console.log(entity[0].user[0])
+	   if(entity[0].user[0]){
+		entity[0].user = await utils.decryptInternalUser(entity[0].user[0]);
+	   }
+	  // entity.user = await utils.decryptInternalUser(entity.user);
+	   res.status(200).json(entity[0]);
 	}
 	catch(err)
 	{

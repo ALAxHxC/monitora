@@ -8,11 +8,11 @@ router.patch('/medic/:id',function(req,res){
 router.get('/',function(req,res,next){
   userController.getMedics(req,res);
 });
-router.post('/', function(req, res, next) {
-  userController.createUserMedic(req,res);
-});
 router.get('/search/:id',function(req,res,next){
   medicController.getMedicById(req.params.id,res);
+});
+router.post('/', function(req, res, next) {
+  userController.createUserMedic(req,res);
 });
 router.patch('/:id',function(req,res,next){
   medicController.updateMedicService(req,res)

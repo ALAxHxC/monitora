@@ -21,6 +21,7 @@ function initDatabase(app){
 	const traige=require('../../model/triage/Triage')(app,mongoose);
 	const notify=require('../../model/notification/Notify')(app,mongoose);
 	const message=require('../../model/messages/MessageCollection')(app,mongoose);
+	const places = require('../../model/places/places')(app,mongoose);
 	cargaDedatos();
 }
 

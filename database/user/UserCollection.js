@@ -1,8 +1,10 @@
 const Collection = require('../general/Collection.js');
-var mycrypto=require('../../security/apiUtils');
+const mycrypto=require('../../security/apiUtils');
+const userEntity = require('mongoose').model('User');
+
 class User extends Collection{
- constructor(collection){
- 	super(collection);
+ constructor(){
+ 	super(userEntity);
  }
 
  async login(userExternal,passwordExternal){
@@ -64,6 +66,10 @@ class User extends Collection{
  		throw(err);
  		console.log(err.stack);
  	}
+ }
+ async userByType(type,userDetails){
+	 let data = await super.entity.findOne({userDetails:userDetails,type:type});
+	 return data;
  }
  async findUserData(from,id){
  	let data=await super.entity.aggregate([
