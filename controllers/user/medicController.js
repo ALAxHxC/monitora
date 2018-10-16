@@ -46,7 +46,7 @@ module.exports.updateMedicService = async function (req, res) {
 		let id = req.params.id;
 		let medic = req.body;
 		console.log(id, medic)
-		medic = await utils.encryptUpdateInternalUser(medic);
+		medic = await utils.encryptInternalUser(medic);
 		let updateMedic = await medicController.updateMedic(id, medic);
 		res.status(201).json(updateMedic);
 	} catch (err) {

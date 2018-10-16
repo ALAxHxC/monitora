@@ -15,7 +15,12 @@ class UserMedic extends Collection{
 					lastNames: medic.lastNames,
 					description: medic.description,
 					date: medic.date,
-					especiality: medic.especiality
+					especiality: medic.especiality,
+					document:
+						{
+							identification: medic.document.identification,
+							type:  medic.document.type
+						}
 				}
 			});
 		return updated;

@@ -95,7 +95,7 @@ module.exports.updatePatientService=async function(req,res){
 		let id=req.params.id;
 		let patient=req.body;
 		console.log(id,patient)
-	patient= await utils.encryptUpdateInternalUser(patient);
+	patient= await utils.encryptInternalUser(patient);
 	let updatePatient=await patientEntity.updatePatient(id,patient);
 	res.status(201).json(updatePatient);
 }catch(err){

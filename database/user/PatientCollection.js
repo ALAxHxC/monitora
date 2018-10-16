@@ -68,7 +68,13 @@ class Patient extends Collection {
 						firstNames: patient.firstNames,
 						lastNames: patient.lastNames,
 						description: patient.description,
-						date: patient.date
+						date: patient.date,
+						idMedic: patient.idMedic,
+						document:
+						{
+							identification: patient.document.identification,
+							type:  patient.document.type
+						}
 					}
 				});
 			return updated;
