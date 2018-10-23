@@ -23,6 +23,7 @@ function initDatabase(app){
 	const message=require('../../model/messages/MessageCollection')(app,mongoose);
 	const places = require('../../model/places/places')(app,mongoose);
 	const messagesTriages = require('../../model/triage/MessageTriage')(app,mongoose);
+	const inboxMessages = require('../../model/messages/InboxMessage')(app,mongoose);
 	cargaDedatos();
 }
 

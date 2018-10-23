@@ -4,25 +4,25 @@
 global.expires=process.env.EXPIRES||86400;
 
 
-var moongodb = require('./database/general/MongoInitBasic');
+const moongodb = require('./database/general/MongoInitBasic');
 moongodb.initDataBase(app);
 
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var userTypesRouter= require('./routes/user_types')
-var patientRouter = require('./routes/patient');
-var medicRouter = require('./routes/medic');
-var traigeRouter = require('./routes/triage');
-var authRouter= require('./routes/auth');
-var messageRouter=require('./routes/message');
-
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const userTypesRouter= require('./routes/user_types')
+const patientRouter = require('./routes/patient');
+const medicRouter = require('./routes/medic');
+const traigeRouter = require('./routes/triage');
+const authRouter= require('./routes/auth');
+const messageRouter=require('./routes/message');
+const inboxRouter = require('./routes/inbox')
 
 var firebase = require('./message/firebase');
 var app = express();
@@ -47,6 +47,7 @@ app.use('/auth',authRouter);
 app.use('/traige',traigeRouter);
 app.use('/medic',medicRouter);
 app.use('/messages',messageRouter);
+app.use('/inbox',inboxRouter);
 //
 //app.use('/permissions',user_types);
 // catch 404 and forward to error handler
