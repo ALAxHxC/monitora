@@ -27,57 +27,41 @@ try{
     res.status(400).json({error: errors.noTriageCreate,cause: err.message});
 }
 }
-getAllMessages=async(res)=>{
-    try{
-        let array=[];
-        let data = await entityManager.getAllData()
-        for (item of data){
-            if(item.patient.length>0){
-                item.patient = await utils.decryptInternalPatient(item.patient[0]);
-            }
-            if(item.medic.length>0){
-                item.medic = await utils.decryptInternalPatient(item.medic[0]);
-            }
-            array.push(item);
-        }
-        res.status(200).json(array);
-    }catch(err){
-        res.status(400).json({error: errors.noTriageCreate,cause: err.message});
-    }
-}
+
 getByMedic=async(id,res)=>{
     try{
-        let messages=await entityManager.getMessagesByMedic(id);
+        let messages=await entityManager.findByMedic(id);
         res.status(201).json(messages)
     }catch(err){
+        console.log(err.message,err.stack)
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});
     }
 }
 getByPatient=async(id,res)=>{
     try{
-        let messages=await entityManager.getMessagesByPatient(id);
+        let messages=await entityManager.findByPatient(id);
         res.status(201).json(messages)
     }catch(err){
+        console.log(err.message,err.stack)
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});
     }
 }
-updatePatientView=async(id,res)=>{
+addMessage=async(id,message,res)=>{
     try{
-        let message=await entityManager.updateViewPatient(id);
-        res.status(201).json(message)
+        let message = await entityManager.getDocumentById(id)
+        if(utils.dateisOld(message.createAt)){
+            console.log("Es menor",utils.dateisOld(message.createAt));
+            let updated = await entityManager.appendMessage(id,message)
+            res.status(201).json(updated);
+            return;
+        }
+        res.status(400).json({error: errors.noMessageSend,cause: err.message});
     }catch(err){
+        console.log(err.message,err.stack)
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});
     }
 }
 
-updateMedicView=async(id,res)=>{
-    try{
-        let message=await entityManager.updateViewMedic(id);
-        res.status(201).json(message)
-    }catch(err){
-        res.status(400).json({error: errors.noTriageCreate,cause: err.message});
-    }
-}
 async function validateMedic(triage)
 {
 	let medic=await medicController.getMedicById(triage.idMedic);
@@ -93,7 +77,6 @@ module.exports={
     createMessage,
     getByMedic,
     getByPatient,
-    updatePatientView,
-    updateMedicView,
-    getAllMessages
+    addMessage
+   
 }

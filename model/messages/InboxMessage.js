@@ -12,7 +12,7 @@ exports = module.exports = function(app, mongoose)
       createAt: { type: Date, default: Date.now },
       updateAt: { type: Date, default: Date.now },
       messages: [
-        {name: String, message: String}
+        {name: String, message: String, createAt: { type: Date, default: Date.now }}
       ]
     } 
   );

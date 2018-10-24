@@ -1,19 +1,37 @@
-const Collection = require('../general/Collection.js'); 
+const Collection = require('../general/Collection.js');
 const collection = require('mongoose').model('InboxMessage');
-class InboxMessageCollection extends Collection
-{
-	constructor()
-	{
+class InboxMessageCollection extends Collection {
+	constructor() {
 		super(collection);
 	}
-	async getMessageByTriage(id){
-		try{
-			let data = await super.entity.find({idTriage:id});
+
+	async appendMessage(id, message) {
+		try {
+			let data = await super.entity.updateOne(
+				{ "_id": id },
+				{ $push: { messages: message } }
+			);
 			return data;
-		}catch(err){
-			throw(err)
+		} catch (err) {
+			throw (err);
 		}
 	}
-	
+	async findByPatient(id) {
+		try {
+			let data = await super.entity.find({"idPatient":id});
+			return data;
+		} catch (err) {
+			throw (err);
+		}
+	}
+	async findByMedic(id) {
+		try {
+			let data = await super.entity.find({"idMedic":id});
+			return data;
+		} catch (err) {
+			throw (err);
+		}
+	}
+
 }
 module.exports = InboxMessageCollection;

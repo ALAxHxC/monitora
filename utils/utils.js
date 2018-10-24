@@ -29,10 +29,17 @@ async function encryptItem(data){
     let new_data = await mycrypto.encryptInternal(data);
     return new_data;
 }
+function dateisOld(date1){
+ let date2 = new Date().getTime()
+    date1 = new Date(date1).getTime();
+ return date1-date2;
+
+}
 module.exports ={
     decryptInternalPatient,
     encryptInternalUser,
     encryptUpdateInternalUser,
     encryptItem,
-    decryptInternalUser
+    decryptInternalUser,
+    dateisOld
 }
