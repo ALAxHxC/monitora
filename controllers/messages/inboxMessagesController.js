@@ -27,6 +27,16 @@ try{
     res.status(400).json({error: errors.noTriageCreate,cause: err.message});
 }
 }
+getInboxById= async(id,res)=>{
+    try {
+        let inbox = await entityManager.getDocumentById(id);
+        res.status(200).json(inbox);
+    }
+    catch(err)
+    {
+        res.status(400).json({error: errors.noTriageCreate,cause: err.message});
+    }
+}
 
 getByMedic=async(id,res)=>{
     try{
@@ -77,6 +87,7 @@ module.exports={
     createMessage,
     getByMedic,
     getByPatient,
-    addMessage
+    addMessage,
+    getInboxById
    
 }
