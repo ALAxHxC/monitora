@@ -6,6 +6,8 @@ exports = module.exports = function(app, mongoose)
       idMedic: {type: mongoose.Schema.Types.ObjectId, index: true},
       idPatient:  {type: mongoose.Schema.Types.ObjectId, index: true},
       subject: {type: 'String', required: true },
+      from: {type: 'String' , default: "Medic"},
+      to: {type: 'String' , default: "Patient"},
       patient_view:{type: Boolean, default: false},
       medic_view:{type: Boolean, default: false},
       close:{type: Boolean, default: false },
