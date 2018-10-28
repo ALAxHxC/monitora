@@ -7,6 +7,7 @@ class InboxMessageCollection extends Collection {
 
 	async appendMessage(id, message) {
 		try {
+			console.log(message)
 			let data = await super.entity.updateOne(
 				{ "_id": id },
 				{ $push: { messages: message } }

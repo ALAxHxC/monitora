@@ -56,12 +56,13 @@ getByPatient=async(id,res)=>{
         res.status(400).json({error: errors.noTriageCreate,cause: err.message});
     }
 }
-addMessage=async(id,message,res)=>{
+addMessage=async(id,message_append,res)=>{
     try{
         let message = await entityManager.getDocumentById(id)
+        console.log(message)
         if(utils.dateisOld(message.createAt)){
             console.log("Es menor",utils.dateisOld(message.createAt));
-            let updated = await entityManager.appendMessage(id,message)
+            let updated = await entityManager.appendMessage(id,message_append)
             res.status(201).json(updated);
             return;
         }
