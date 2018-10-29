@@ -21,9 +21,13 @@ try{
         res.status(400).json({error: errors.noPatientTriage,cause:"Triage Error"})
         return;
     }
-    let new_meesage=await entityManager.create(req.body);
+    let message = req.body;
+    message.patient=patient;
+    message.medic=medic;
+    let new_meesage=await entityManager.create(message);
     res.status(201).json({message:new_meesage})
 }catch(err){
+    console.log(err.message,err.stack)
     res.status(400).json({error: errors.noTriageCreate,cause: err.message});
 }
 }
@@ -75,13 +79,15 @@ addMessage=async(id,message_append,res)=>{
 
 async function validateMedic(triage)
 {
-	let medic=await medicController.getMedicById(triage.idMedic);
+    let medic=await medicController.getInternalMedic(triage.idMedic);
+    medic = await utils.decryptInternalPatient(medic)
 	return medic;
 }
 
 async function validatePatient(triage)
 {
-	let patient=await patientController.searchPatientByIdInternal(triage.idPatient);
+    let patient=await patientController.searchPatientByIdInternal(triage.idPatient);
+    patient = await utils.decryptInternalPatient(patient);
 	return patient;
 }
 module.exports={

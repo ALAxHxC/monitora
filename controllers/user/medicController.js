@@ -31,9 +31,9 @@ module.exports.getMedicById = async function (id, res) {
 	}
 
 }
-async function getMedicById(id) {
+module.exports.getInternalMedic= async function(id) {
 	try {
-		let user = await medicController.medicById(id);
+		let user = await medicController.getDocumentById(id);
 		//console.log(user);
 		return user;
 	} catch (err) {
