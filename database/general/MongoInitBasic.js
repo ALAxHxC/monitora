@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var url="mongodb://admin:bc3ASAMb4W8N0ac0@cluster0-shard-00-00-hy2jd.mongodb.net:27017,cluster0-shard-00-01-hy2jd.mongodb.net:27017,cluster0-shard-00-02-hy2jd.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
+var url="mongodb://daniel:jenizaro123@cluster0-shard-00-00-hy2jd.mongodb.net:27017,cluster0-shard-00-01-hy2jd.mongodb.net:27017,cluster0-shard-00-02-hy2jd.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
 mongoose.connect(url);
 mongoose.Promise = global.Promise;
 	var db = mongoose.connection;

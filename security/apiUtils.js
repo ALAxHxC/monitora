@@ -41,8 +41,8 @@ module.exports.decryptExternal = async function(text)
 async function test()
 {
 	try{
-		let user = await crypto2.decrypt("4be1f75cd174b5030f1fea27b2417045",password_internal,iv_internal);
-		let password = await crypto2.decrypt("f70cc56ca9298815931d4043831db975",password_internal,iv_internal);
+		let user = await crypto2.encrypt("1030626879",password_internal,iv_internal);
+		let password = await crypto2.decrypt("c5d4d2cf57a4e9e606fde18d8c4ccf63",password_internal,iv_internal);
 
 	// Create a password from a secret key.
 	 // const password = await crypto2.createPassword('secret');
