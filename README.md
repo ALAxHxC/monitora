@@ -1,5 +1,76 @@
 # Monitora API
 
+#### Models
+
+
+#### Tipificacion:
+```
+{
+id: ObjectId,
+name: String
+}
+```
+
+#### Clasificacion:
+```
+{
+id: ObjectId,
+name: String,
+descripccion: String
+}
+```
+
+
+#### Examen/CitaMedica
+ * Data contiene la informacion y parametros del examen, ejemplo SPO2, PULOS, ETC...
+ * name: Nombre del examen
+ * description: Descripccion del examen
+ * medics: array de medicos que estan en capacidad de realizar este
+```
+{
+ id: ObjectId,
+ name: String,
+ categories: [String],
+ description:String
+ data:{
+ },
+ medics:[]
+
+}
+```
+
+##### Examen Paciente
+```
+{
+id: ObjectId,
+patient: ObjectId,
+medic: ObjectId,
+type: ObjectId,
+data:{}
+}
+```
+
+##### Cita Medica
+```
+{
+id: ObjectId,
+patient: ObjectId,
+medic: ObjectId,
+type: ObjectId,
+schudule:{
+date:Date,
+day: int,
+month: int,
+yearh: int,
+hour: String,
+ }
+}
+```
+
+
+
+
+
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 Api backend de monitora.
 ##### Dependencias principales
@@ -24,7 +95,7 @@ Api backend de monitora.
 
 ### LOCAL
 
-> npm install 
+> npm install
 > npm start
 > probar sobre el puerto 3000 (127.0.0.1:3000)
 
