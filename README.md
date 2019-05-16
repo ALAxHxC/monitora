@@ -20,68 +20,6 @@ description: String
 }
 ```
 
-#### Examen
- * params contiene la informacion y parametros del examen, ejemplo SPO2, PULOS, ETC...
- * name: Nombre del examen
- * description: Descripccion del examen
- * medics: array de medicos que estan en capacidad de realizar este
-```
-{
- id: ObjectId,
- name: String,
- categories: [String],
- description:String,
- params:{
- },
- medics:[ObjectId]
-
-}
-```
-
-##### Cita medica
-```
-{
- id: ObjectId,
- name: String,
- categories: [String],
- description:String,
- params:{
- },
- results:[ObjectId]
- medics:[ObjectId]
-
-}
-```
-
-
-
-##### Resultado Examen Paciente
-```
-{
-id: ObjectId,
-patient: ObjectId,
-medic: ObjectId,
-type: ObjectId,
-result:{}
-}
-```
-
-##### Resultado Cita Medica Paciente
-```
-{
-id: ObjectId,
-patient: ObjectId,
-medic: ObjectId,
-type: ObjectId,
-schudule:{
-date:Date,
-day: int,
-month: int,
-yearh: int,
-hour: String,
- }
-}
-```
 
 
 
