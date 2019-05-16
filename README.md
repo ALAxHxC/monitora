@@ -16,13 +16,12 @@ name: String
 {
 id: ObjectId,
 name: String,
-descripccion: String
+description: String
 }
 ```
 
-
-#### Examen/CitaMedica
- * Data contiene la informacion y parametros del examen, ejemplo SPO2, PULOS, ETC...
+#### Examen
+ * params contiene la informacion y parametros del examen, ejemplo SPO2, PULOS, ETC...
  * name: Nombre del examen
  * description: Descripccion del examen
  * medics: array de medicos que estan en capacidad de realizar este
@@ -31,26 +30,43 @@ descripccion: String
  id: ObjectId,
  name: String,
  categories: [String],
- description:String
- data:{
+ description:String,
+ params:{
  },
- medics:[]
+ medics:[ObjectId]
 
 }
 ```
 
-##### Examen Paciente
+##### Cita medica
+```
+{
+ id: ObjectId,
+ name: String,
+ categories: [String],
+ description:String,
+ params:{
+ },
+ results:[ObjectId]
+ medics:[ObjectId]
+
+}
+```
+
+
+
+##### Resultado Examen Paciente
 ```
 {
 id: ObjectId,
 patient: ObjectId,
 medic: ObjectId,
 type: ObjectId,
-data:{}
+result:{}
 }
 ```
 
-##### Cita Medica
+##### Resultado Cita Medica Paciente
 ```
 {
 id: ObjectId,
