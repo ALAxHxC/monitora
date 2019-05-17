@@ -1,7 +1,7 @@
 //variables de entorno
 
 
-global.expires=process.env.EXPIRES||86400;
+global.expires = process.env.EXPIRES || 86400;
 
 
 const moongodb = require('./database/general/MongoInitBasic');
@@ -16,13 +16,14 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const userTypesRouter= require('./routes/user_types')
+const userTypesRouter = require('./routes/user_types')
 const patientRouter = require('./routes/patient');
 const medicRouter = require('./routes/medic');
 const traigeRouter = require('./routes/triage');
-const authRouter= require('./routes/auth');
-const messageRouter=require('./routes/message');
-const inboxRouter = require('./routes/inbox')
+const authRouter = require('./routes/auth');
+const messageRouter = require('./routes/message');
+const inboxRouter = require('./routes/inbox');
+const tipificationRouter = require('./routes/typification');
 
 var firebase = require('./message/firebase');
 var app = express();
@@ -41,22 +42,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/patient',patientRouter);
-app.use('/permissions',userTypesRouter);
-app.use('/auth',authRouter);
-app.use('/traige',traigeRouter);
-app.use('/medic',medicRouter);
-app.use('/messages',messageRouter);
-app.use('/inbox',inboxRouter);
+app.use('/patient', patientRouter);
+app.use('/permissions', userTypesRouter);
+app.use('/auth', authRouter);
+app.use('/traige', traigeRouter);
+app.use('/medic', medicRouter);
+app.use('/messages', messageRouter);
+app.use('/inbox', inboxRouter);
+app.use('/typification', tipificationRouter);
 //
 //app.use('/permissions',user_types);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
