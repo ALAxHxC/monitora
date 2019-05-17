@@ -1,11 +1,15 @@
 const Collection = require('../../database/classification/classificationCollection')
+const TypificationCollection = require('../../database/classification/typificationCollection')
 const errors = require('../../model/alert/errorMessagesAPI');
 const entityManager = new Collection();
+const entityTypification = new TypificationCollection();
 const utils = require('../../utils/utils');
 
 create = async (req, res) => {
   try {
-    let entity = await entityManager.create(req.body)
+    let data = req.body;
+    data.typifications = await entityTypification.findIn(data.typifications);
+    let entity = await entityManager.create(data)
     res.status(201).json(entity)
   } catch (err) {
     console.log(err.message, err.stack)

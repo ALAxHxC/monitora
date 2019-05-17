@@ -24,7 +24,7 @@ const authRouter = require('./routes/auth');
 const messageRouter = require('./routes/message');
 const inboxRouter = require('./routes/inbox');
 const tipificationRouter = require('./routes/typification');
-
+const classificationRouter = require('./routes/classification')
 var firebase = require('./message/firebase');
 var app = express();
 var cors = require('cors')
@@ -50,6 +50,7 @@ app.use('/medic', medicRouter);
 app.use('/messages', messageRouter);
 app.use('/inbox', inboxRouter);
 app.use('/typification', tipificationRouter);
+app.use('/classification', classificationRouter);
 //
 //app.use('/permissions',user_types);
 // catch 404 and forward to error handler
