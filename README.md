@@ -1,5 +1,21 @@
 # Monitora API
 
+
+
+#### Pacientes
+
+##### Tipificaciones:
+
+* Agregar
+  * id: id del cliente
+  * tipo: id de la tipificacion
+  * Method: POST
+  * PATH: /patient/type/:id/:type
+* Eliminar
+  * Method: POST
+  * PATH: * PATH: /patient/type/:id/:type
+ 
+* Ejemplo : /patient/type/5bbd7743fd252f0013ab24aa/type1
 #### Models
 
 
