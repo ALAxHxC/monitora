@@ -8,6 +8,16 @@ class Collection {
 	get entity() {
 		return this.collection;
 	}
+	async updateOne(search, data) {
+		try {
+			let search_document = await this.collection.updateOne(search, data);
+			return search_document;
+		}
+		catch (err) {
+			console.log(err.message, err.stack);
+			throw (err);
+		}
+	}
 
 	async create(new_document) {
 		try {
