@@ -1,26 +1,71 @@
 
-var errors = require('../../model/alert/errorMessagesAPI');
-var mycrypto = require('../../security/apiUtils');
+const errors = require('../../model/alert/errorMessagesAPI');
+const mycrypto = require('../../security/apiUtils');
+const UserMedic = require('../../database/user/UserMedicCollection');
+const medicController = new UserMedic();
+const UserTypeController = require('./userTypeController');
+const utils = require('../../utils/utils');
 
-const UserMedic = require('../../database/user/UserMedicCollection.js');
 
 
+module.exports.appendSpecialityypes = async (req, res) => {
+	try {
+		let update = await medicController.updateOne({
+			_id: req.params.id
+		}, { $addToSet: { especialities: req.params.type } })
+		res.status(200).json(update)
+		return;
+	} catch (err) {
+		res.status(400).json({ message: err.message, stack: err.stack })
+	}
+}
+module.exports.deleteSpecialityTypes = async (req, res) => {
+	try {
+		let update = await medicController.updateOne({
+			_id: req.params.id
+		}, { $pullAll: { especialities: [req.params.event] } })
+		res.status(200).json(update)
+		return;
+	} catch (err) {
+		res.status(400).json({ message: err.message, stack: err.stack })
+	}
+}
 
-var medicController = new UserMedic();
-var UserTypeController = require('./userTypeController');
-let utils = require('../../utils/utils');
+module.exports.appendMedicTypes = async (req, res) => {
+	try {
+		let update = await medicController.updateOne({
+			_id: req.params.id
+		}, { $addToSet: { typification: req.params.type } })
+		res.status(200).json(update)
+		return;
+	} catch (err) {
+		res.status(400).json({ message: err.message, stack: err.stack })
+	}
+}
+module.exports.deleteMedicTypes = async (req, res) => {
+	try {
+		let update = await medicController.updateOne({
+			_id: req.params.id
+		}, { $pullAll: { typification: [req.params.event] } })
+		res.status(200).json(update)
+		return;
+	} catch (err) {
+		res.status(400).json({ message: err.message, stack: err.stack })
+	}
+}
+
 module.exports.getMedicById = async function (id, res) {
 	{
 		try {
 			let user = await medicController.medicById(id);
 			//console.log(user);
 			let data = await utils.decryptInternalPatient(user[0]);
-			data.user=await utils.decryptInternalUser(data.user[0]);
-			if(res)
-			res.status(200).json(data);
-			
+			data.user = await utils.decryptInternalUser(data.user[0]);
+			if (res)
+				res.status(200).json(data);
+
 			return data;
-			
+
 		} catch (err) {
 			res.status(400).json({
 				status: 400,
@@ -31,7 +76,7 @@ module.exports.getMedicById = async function (id, res) {
 	}
 
 }
-module.exports.getInternalMedic= async function(id) {
+module.exports.getInternalMedic = async function (id) {
 	try {
 		let user = await medicController.getDocumentById(id);
 		//console.log(user);
